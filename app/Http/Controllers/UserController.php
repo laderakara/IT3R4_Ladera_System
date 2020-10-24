@@ -3,11 +3,16 @@
     namespace App\Http\Controllers;
     use Illuminate\Http\Request;
     use App\Traits\ApiResponser;
-    use App\User;
+    use App\Model\User;
     use DB;
     Class UserController extends Controller {
         use ApiResponser;
         private $request;
+
+        public function getUser(){
+            $users = app('db')->select("SELECT * FROM users");
+            return $this->successResponse($users);
+        }
 
         public function __construct(Request $request){
         $this->request = $request;
