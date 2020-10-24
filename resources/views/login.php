@@ -11,7 +11,7 @@
         <div class="row justify-content-center vh-100">
             <div class="card w-50 my-auto">
                 <div class="card-header text-center bg-dark text-white">
-                    <h2>Please Log-In</h2>
+                    <h3>Please Log-In</h3>
                 </div>
                 <div class="card-body">
                     <form action="validate" method="post">

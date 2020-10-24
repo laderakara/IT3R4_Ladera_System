@@ -8,10 +8,10 @@
 
 <body class>
     <div class="container vh-100">
-        <div class="row justify-content-center h-100">
-            <div class="card w-50 my-auto shadow border-0">
+        <div class="row justify-content-center vh-100">
+            <div class="card w-50 my-auto">
                 <div class="card-header text-center bg-dark text-white">
-                    <h2>Edit User Account</h2>
+                    <h3>Edit User Account</h3>
                 </div>
                 <div class="card-body">
                     <?php
@@ -25,11 +25,7 @@
                     <form action="update" method="post">
                         <input type="hidden" name="idSearch" value="<?php echo $id[$x]->id; ?>">
                         <div class="form-group">
-                            <label>Username</label>
                             <input type="text" name="username" value="<?php echo $username[$x]->username; ?>" class="form-control" placeholder="Enter username" required>
-                        </div>                       
-                        <div class="form-group">
-                            <label>Password</label>
                             <input type="text" name="password" value="<?php echo $password[$x]->password; ?>" class="form-control" placeholder="Enter password" required>
                         </div>              
                         <div class="form-group text-right">
@@ -39,7 +35,7 @@
                     </form>
                                  
                     <div class="card-footer text-right">
-                        <small>&copy; UPortal Developer</small>
+                        <small>&copy; 2020-2021</small>
                     </div>
                     
                     <?php
