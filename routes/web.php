@@ -20,33 +20,33 @@ $router->get('users', [
 ]);
 
 $router->get('login', [
-    'as' => 'login', 'uses' => 'UserController@loginPage'
+    'as' => 'login', 'uses' => 'UserController@getLogin'
 ]);
 
 $router->post('validate', [
-    'as' => 'validate', 'uses' => 'UserController@validateUser'
+    'as' => 'validate', 'uses' => 'UserController@postValidate'
 ]);
 
 $router->get('dashboard', [
-    'as' => 'dashboard', 'uses' => 'UserController@dashboard'
-]);
-
-$router->post('create', [
-    'as' => 'create', 'uses' => 'UserController@createPage'
+    'as' => 'dashboard', 'uses' => 'UserController@getDashboard'
 ]);
 
 $router->post('create-user', [
-    'as' => 'create-user', 'uses' => 'UserController@createUser'
+    'as' => 'create-user', 'uses' => 'UserController@postCreateUser'
+]);
+
+$router->post('create', [
+    'as' => 'create', 'uses' => 'UserController@postCreate'
 ]);
 
 $router->post('edit', [
-    'as' => 'edit', 'uses' => 'UserController@editPage'
+    'as' => 'edit', 'uses' => 'UserController@postEdit'
 ]);
 
 $router->post('update', [
-    'as' => 'update', 'uses' => 'UserController@update'
+    'as' => 'update', 'uses' => 'UserController@postUpdate'
 ]);
 
 $router->post('delete', [
-    'as' => 'delete', 'uses' => 'UserController@delete'
+    'as' => 'delete', 'uses' => 'UserController@postDelete'
 ]);

@@ -5,42 +5,39 @@
     use App\Traits\ApiResponser;
     use App\Model\User;
     use DB;
+
     Class UserController extends Controller {
         use ApiResponser;
         private $request;
 
+        public function __construct(Request $request){
+        $this->request = $request;
+        }
+        
         public function getUser(){
             $users = app('db')->select("SELECT * FROM users");
             return $this->successResponse($users);
         }
 
-        public function __construct(Request $request){
-        $this->request = $request;
-        }
-
-        public function loginPage(){
+        public function getLogin(){
             return view('login');
         }
 
-        public function validateUser(){
-            
+        public function postValidate(){
             $username = $_POST['username'];
             $password = $_POST['password'];
-
             $user = app('db')->select("SELECT * FROM users WHERE username='$username' and password='$password'");
-
             if(empty($user)){
-                return 'No account registered or Invalid login credentials.';
+                return 'Invalid Input.';
             }else{
                 return redirect()->route('dashboard');
-            }
-            
+            }  
         }
-        public function dashboard(){
+
+        public function getDashboard(){
             $id = app('db')->select("SELECT id FROM users");
             $username = app('db')->select("SELECT username FROM users");
             $password = app('db')->select("SELECT password FROM users");
-
             $data = [
                 'id'=>$id,
                 'username'=>$username,
@@ -48,16 +45,13 @@
             ];
             return view('dashboard')->with($data);
         }
-        public function createUser(Request $request){
 
-            $this->validate($request, [
+        public function postCreateUser(Request $request){
+            $this->postValidate($request, [
                 'username' => 'required|max:50',
                 'password' => 'required|max:50'
             ]);
-
-            $users = app('db')->select("SELECT * FROM users");
-            
-
+            $users = app('db')->select("SELECT * FROM users"); 
             if(count($users)>0){
                 $idcount = DB::table('users')->orderBy('id', 'DESC')->first();
                 $idcount = $idcount->id;
@@ -78,19 +72,17 @@
                     return redirect()->route('dashboard');
                 } else {
                 }
-            }
-           
+            }   
         }
 
-        public function createPage(){
+        public function postCreate(){
             return view('create');
         }
 
-        public function editPage(){
+        public function postEdit(){
             $id = app('db')->select("SELECT id FROM users");
             $username = app('db')->select("SELECT username FROM users");
             $password = app('db')->select("SELECT password FROM users");
-
             $data = [
                 'id' => $id,
                 'username' => $username,
@@ -99,7 +91,7 @@
             return view('edit')->with($data);
         }
 
-        public function update(){
+        public function postUpdate(){
             $id = $_POST['idSearch'];
             $username = $_POST['username'];
             $password = $_POST['password'];
@@ -107,12 +99,11 @@
             return redirect()->route('dashboard');
         }
 
-        public function delete(){
+        public function postDelete(){
             $id = $_POST['delete_id'];
             $user = User::find($id);
             $user->delete();
             return redirect()->route('dashboard');
         }
-
     }
 ?>
