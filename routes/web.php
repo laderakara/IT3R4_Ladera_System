@@ -27,26 +27,25 @@ $router->post('validate', [
     'as' => 'validate', 'uses' => 'UserController@postValidate'
 ]);
 
-$router->get('dashboard', [
-    'as' => 'dashboard', 'uses' => 'UserController@getDashboard'
+$router->get('adminn', [
+    'as' => 'adminn', 'uses' => 'UserController@getAdminn'
 ]);
 
-$router->post('create-user', [
-    'as' => 'create-user', 'uses' => 'UserController@postCreateUser'
+$router->get('accountant', [
+    'as' => 'accountant', 'uses' => 'UserController@getAccountant'
 ]);
 
-$router->post('create', [
-    'as' => 'create', 'uses' => 'UserController@postCreate'
+$router->get('secretary', [
+    'as' => 'secretary', 'uses' => 'UserController@getSecretary'
 ]);
 
-$router->post('edit', [
-    'as' => 'edit', 'uses' => 'UserController@postEdit'
+$router->get('cashier', [
+    'as' => 'cashier', 'uses' => 'UserController@getCashier'
+]); 
+
+$router->get('student', [
+    'as' => 'student', 'uses' => 'UserController@getStudent'
 ]);
 
-$router->post('update', [
-    'as' => 'update', 'uses' => 'UserController@postUpdate'
-]);
 
-$router->post('delete', [
-    'as' => 'delete', 'uses' => 'UserController@postDelete'
-]);
+

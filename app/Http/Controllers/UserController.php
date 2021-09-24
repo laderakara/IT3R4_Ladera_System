@@ -23,87 +23,50 @@
             return view('login');
         }
 
+        public function getAdmin(){
+            return view('admin');
+        }
+
+        public function getAccountant(){
+            return view('accountant');
+        }
+
+        public function getSecretary(){
+            return view('secretary');
+        }
+        
+        public function getCashier(){
+            return view('cashier');
+        }
+        
+        public function getStudent(){
+            return view('student');
+        }
+
         public function postValidate(){
             $username = $_POST['username'];
             $password = $_POST['password'];
             $user = app('db')->select("SELECT * FROM users WHERE username='$username' and password='$password'");
-            if(empty($user)){
-                return 'Invalid Input.';
-            }else{
-                return redirect()->route('dashboard');
+            if($username == 'admin' && $password == 'admin'){
+                return redirect()->route('admin');
+            }
+            if($username == 'accountant' && $password == 'accountant'){
+                return redirect()->route('accountant');
+            }
+            if($username == 'secretary' && $password == 'secretary'){
+                return redirect()->route('secretary');
+            }
+            if($username == 'cashier' && $password == 'cashier'){
+                return redirect()->route('cashier');
+            }
+            if($username == 'student' && $password == 'student'){
+                return redirect()->route('student');
+            }
+            else{
+                return 'Invalid Input';
             }  
         }
 
-        public function getDashboard(){
-            $id = app('db')->select("SELECT id FROM users");
-            $username = app('db')->select("SELECT username FROM users");
-            $password = app('db')->select("SELECT password FROM users");
-            $data = [
-                'id'=>$id,
-                'username'=>$username,
-                'password'=>$password
-            ];
-            return view('dashboard')->with($data);
-        }
-
-        public function postCreateUser(Request $request){
-            $this->postValidate($request, [
-                'username' => 'required|max:50',
-                'password' => 'required|max:50'
-            ]);
-            $users = app('db')->select("SELECT * FROM users"); 
-            if(count($users)>0){
-                $idcount = DB::table('users')->orderBy('id', 'DESC')->first();
-                $idcount = $idcount->id;
-                $user = new User;
-                $user->id=($idcount+1);
-                $user->password = $request->input('password');
-                $user->username = $request->input('username');
-                if ($user->save()) {
-                    return redirect()->route('dashboard');
-                } else {
-                }
-            }else{
-                $user = new User;
-                $user->id = (count($users)+ 1);
-                $user->password = $request->input('password');
-                $user->username = $request->input('username');
-                if ($user->save()) {
-                    return redirect()->route('dashboard');
-                } else {
-                }
-            }   
-        }
-
-        public function postCreate(){
-            return view('create');
-        }
-
-        public function postEdit(){
-            $id = app('db')->select("SELECT id FROM users");
-            $username = app('db')->select("SELECT username FROM users");
-            $password = app('db')->select("SELECT password FROM users");
-            $data = [
-                'id' => $id,
-                'username' => $username,
-                'password' => $password
-            ];
-            return view('edit')->with($data);
-        }
-
-        public function postUpdate(){
-            $id = $_POST['idSearch'];
-            $username = $_POST['username'];
-            $password = $_POST['password'];
-            app('db')->table('users')->where('id', $id)->update(['username' => $username, 'password' => $password]);
-            return redirect()->route('dashboard');
-        }
-
-        public function postDelete(){
-            $id = $_POST['delete_id'];
-            $user = User::find($id);
-            $user->delete();
-            return redirect()->route('dashboard');
-        }
+     
     }
 ?>
